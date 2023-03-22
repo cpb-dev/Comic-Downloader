@@ -1,18 +1,15 @@
-import requests, bs4
 import numpy as np
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_auto_update import check_driver
-from PIL import Image
-import urllib
-from io import StringIO
-import shutil
 import urllib.request as req
 import urllib.error
 from os import listdir
 import os
 from glob import glob
+import img2pdf
+import shutil
 
 check_driver('/Users/cpbai/AppData/Local/Programs/Python/Python310/Lib/site-packages/selenium/webdriver')
 
@@ -38,26 +35,21 @@ def gather_comic():
     
     for i in range(len(images)):
         #Create a temporary file for image before pdf
-        file = img_dir + "Nightwing{}.jpg".format(i)
+        file = img_dir + "Nightwing00{}.jpg".format(i)
         with req.urlopen(images[i]) as d, open(file, "wb") as opfile:
             data = d.read()
             opfile.write(data)
 
-    images = [
-        glob(os.path.join(img_dir, "*.jpg"))
-    ]
-
-    pdf = FPDF()
     pdf_path = "C:/Users/cpbai/PlayGrounds/Comic Downloader/Comics/new_comic.pdf"
 
-    for img in images:
-        pdf.add_page()
-        pdf.image(img)
-    
-    pdf.output(pdf_path, "F")
+    with open(pdf_path, "wb") as f:
+        f.write(img2pdf.convert(sorted(glob(os.path.join(img_dir, "*.jpg")), key=len)))
 
-    #images[0].save(
-        #pdf_path, "PDF" ,resolution=100.0, save_all=True, append_images=images[1:]
-    #)
+    for filename in os.listdir(img_dir):
+        filepath = os.path.join(img_dir, filename)
+        try:
+            shutil.rmtree(filepath)
+        except OSError:
+            os.remove(filepath)
 
 gather_comic()
