@@ -53,3 +53,6 @@ def gather_comic():
             os.remove(filepath)
 
 gather_comic()
+
+#Control the page to go to next comic, if comic already exists
+#Better organise how the comics are saved and ordered
