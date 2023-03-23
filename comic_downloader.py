@@ -18,6 +18,7 @@ check_driver('/Users/cpbai/AppData/Local/Programs/Python/Python310/Lib/site-pack
 
 options = webdriver.ChromeOptions()
 options.add_experimental_option('excludeSwitches', ['enable-logging'])
+options.add_argument("--headless")
 browser = webdriver.Chrome(
     service= Service('/Users/cpbai/AppData/Local/Programs/Python/Python310/Lib/site-packages/selenium/webdriver/chromedriver.exe'),
     options = options,
