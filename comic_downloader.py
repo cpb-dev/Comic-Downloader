@@ -85,6 +85,9 @@ def getComicSeries(hero):
 
     x_path = "//li/a[@title='{} {} ({})']".format(title, issue.zfill(3), year)
     new_url = browser.find_element(by = "xpath", value = x_path).get_attribute("href")
+
+    #TODO: Need to amend original csv to update current issue
+    #TODO: Could implement a way to iterate through all issues to the most up-to-date
     
     gatherComic(new_url, hero, issue)
     
