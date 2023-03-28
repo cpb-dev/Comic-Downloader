@@ -73,9 +73,29 @@ def gatherComic(url, comic, issue):
     print("Download Complete!")
     time.sleep(2)
 
-if __name__ == "__main__":
-    hero =  input("What hero are you downloading a comic for?\n")
-    issue = input("Issue No. ")
-    url = input("Input URL: ")
+def getComicSeries(hero):
+    data = pd.read_csv(os.path.join(this_file, "comics.csv"))
+    temp_data = data[data['Hero'] == hero]
+    hero = temp_data.at[0, 'Hero']
+    title = temp_data.at[0, 'Series Title']
+    issue = str(temp_data.at[0,'Current Issue'])
+    year = temp_data.at[0,'Year']
+    url = temp_data.at[0, "URL"]
+    browser.get(url)
 
-    gatherComic(url, hero, issue)
+    x_path = "//li/a[@title='{} {} ({})']".format(title, issue.zfill(3), year)
+    new_url = browser.find_element(by = "xpath", value = x_path).get_attribute("href")
+    
+    gatherComic(new_url, hero, issue)
+    
+if __name__ == "__main__":
+    #hero =  input("What hero are you downloading a comic for?\n")
+    #issue = input("Issue No. ")
+    #url = input("Input URL: ")
+
+    #gatherComic(url, hero, issue)
+    #num = "005"
+
+    #num2 = int(num) + 2
+    #print(str(num2).zfill(3))
+    getComicSeries("Nightwing")
