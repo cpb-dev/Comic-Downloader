@@ -92,13 +92,13 @@ def getComicSeries(hero):
     gatherComic(new_url, hero, issue)
     
 if __name__ == "__main__":
-    #hero =  input("What hero are you downloading a comic for?\n")
-    #issue = input("Issue No. ")
-    #url = input("Input URL: ")
+    hero =  input("What hero are you downloading a comic for?\n")
+    issue = input("Issue No. ")
+    url = input("Input URL: ")
 
-    #gatherComic(url, hero, issue)
+    gatherComic(url, hero, issue)
     #num = "005"
 
     #num2 = int(num) + 2
     #print(str(num2).zfill(3))
-    getComicSeries("Nightwing")
+    #getComicSeries("Nightwing")
